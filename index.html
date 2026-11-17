@@ -79,13 +79,13 @@ footer{border-top:1px solid var(--line);padding:20px 0 30px;color:var(--muted);f
 <button class="btn wa" id="p_send">WhatsApp par bhejein</button>
 </section>
 </main>
-<footer><div class="wrap">Badin Property · Badin, Sindh · Deal se pehle ghar aur malik ki tasdeeq khud kar lein.</div></footer>
+<footer><div class="wrap">Badin Property · Badin, Sindh · Rabta: Jawad Hussain Soomro, <a href="tel:+923182962692" style="color:inherit">0318 2962692</a> · Deal se pehle ghar aur malik ki tasdeeq khud kar lein.</div></footer>
 
 <dialog id="dlg"><div class="dbody" id="dbody"></div></dialog>
 
 <script>
 // ===== APNA NUMBER YAHAN LIKHEIN (92 se shuru, bina + ya 0) =====
-var PHONE = "923000000000";
+var PHONE = "923182962692";
 // ===== LISTINGS: nayi listing yahan add hoti hai. img mein photo ka link de sakte hain =====
 var LISTINGS = [
  {id:1,title:"3 kamron ka ghar",kind:"Ghar",type:"rent",area:"Badin City",price:18000,beds:3,baths:2,size:"5 marla",note:"Namuna listing",img:""},
@@ -93,7 +93,21 @@ var LISTINGS = [
  {id:3,title:"Corner ghar",kind:"Ghar",type:"sale",area:"Badin City",price:4500000,beds:4,baths:3,size:"10 marla",note:"Namuna listing",img:""},
  {id:4,title:"Main road par dukaan",kind:"Dukaan",type:"rent",area:"Main Bazaar",price:25000,beds:0,baths:0,size:"300 sq ft",note:"Namuna listing",img:""},
  {id:5,title:"Residential plot",kind:"Plot",type:"sale",area:"Gulshan-e-Badin",price:1400000,beds:0,baths:0,size:"5 marla",note:"Namuna listing",img:""},
- {id:6,title:"Upar wali manzil ka flat",kind:"Flat",type:"rent",area:"Badin City",price:15000,beds:2,baths:1,size:"2 kamre",note:"Namuna listing",img:""}
+ {id:6,title:"Upar wali manzil ka flat",kind:"Flat",type:"rent",area:"Badin City",price:15000,beds:2,baths:1,size:"2 kamre",note:"Namuna listing",img:""},
+ {id:7,title:"1 kamre ka chhota ghar",kind:"Ghar",type:"rent",area:"Matli Road",price:8000,beds:1,baths:1,size:"2 marla",note:"Namuna listing",img:""},
+ {id:8,title:"4 kamron ka bada ghar",kind:"Ghar",type:"rent",area:"Gulshan-e-Badin",price:30000,beds:4,baths:3,size:"10 marla",note:"Namuna listing",img:""},
+ {id:9,title:"Naya bana hua ghar",kind:"Ghar",type:"sale",area:"Hyderabad Road",price:6800000,beds:5,baths:4,size:"12 marla",note:"Namuna listing",img:""},
+ {id:10,title:"Bazaar mein dukaan",kind:"Dukaan",type:"sale",area:"Main Bazaar",price:3500000,beds:0,baths:0,size:"250 sq ft",note:"Namuna listing",img:""},
+ {id:11,title:"Commercial plot",kind:"Plot",type:"sale",area:"Hyderabad Road",price:2800000,beds:0,baths:0,size:"8 marla",note:"Namuna listing",img:""},
+ {id:12,title:"2 kamron ka flat",kind:"Flat",type:"rent",area:"Gulshan-e-Badin",price:14000,beds:2,baths:1,size:"2 kamre",note:"Namuna listing",img:""},
+ {id:13,title:"3 kamron ka ghar, parking ke saath",kind:"Ghar",type:"rent",area:"Hyderabad Road",price:22000,beds:3,baths:2,size:"6 marla",note:"Namuna listing",img:""},
+ {id:14,title:"Chhoti dukaan",kind:"Dukaan",type:"rent",area:"Badin City",price:12000,beds:0,baths:0,size:"150 sq ft",note:"Namuna listing",img:""},
+ {id:15,title:"Residential plot",kind:"Plot",type:"sale",area:"Matli Road",price:900000,beds:0,baths:0,size:"3 marla",note:"Namuna listing",img:""},
+ {id:16,title:"Purana ghar, sasta",kind:"Ghar",type:"sale",area:"Badin City",price:2500000,beds:3,baths:2,size:"5 marla",note:"Namuna listing",img:""},
+ {id:17,title:"Family flat",kind:"Flat",type:"sale",area:"Badin City",price:3200000,beds:3,baths:2,size:"3 kamre",note:"Namuna listing",img:""},
+ {id:18,title:"2 kamron ka ghar",kind:"Ghar",type:"rent",area:"Matli Road",price:10000,beds:2,baths:1,size:"3 marla",note:"Namuna listing",img:""},
+ {id:19,title:"Godown / bada hall",kind:"Dukaan",type:"rent",area:"Hyderabad Road",price:40000,beds:0,baths:0,size:"1500 sq ft",note:"Namuna listing",img:""},
+ {id:20,title:"Bara plot, kheti ke qareeb",kind:"Plot",type:"sale",area:"Matli Road",price:5500000,beds:0,baths:0,size:"1 acre",note:"Namuna listing",img:""}
 ];
 var $=function(i){return document.getElementById(i)},enc=encodeURIComponent;
 var favs=[],showFav=false;
@@ -101,7 +115,7 @@ try{favs=JSON.parse(localStorage.getItem("badin_favs")||"[]")}catch(e){}
 function saveFavs(){try{localStorage.setItem("badin_favs",JSON.stringify(favs))}catch(e){}}
 function money(l){var p=l.price;var s=p>=100000?(p/100000).toFixed(p%100000?1:0).replace(/\.0$/,"")+" lakh":p.toLocaleString("en-PK");return "Rs "+s+(l.type==="rent"?" / mahina":"")}
 function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
-function fillAreas(){var seen={};LISTINGS.forEach(function(l){seen[l.area]=1});Object.keys(seen).forEach(function(a){var o=document.createElement("option");o.textContent=a;$("area").appendChild(o)})}
+function fillAreas(){$("area").length=1;var seen={};LISTINGS.forEach(function(l){seen[l.area]=1});Object.keys(seen).forEach(function(a){var o=document.createElement("option");o.textContent=a;$("area").appendChild(o)})}
 function facts(l){var a=[];if(l.beds)a.push(l.beds+" kamre");if(l.baths)a.push(l.baths+" bath");a.push(l.size);return a.join(" · ")}
 function photo(l){return l.img?'style="background-image:url(\''+esc(l.img)+'\')"':''}
 function render(){
@@ -133,7 +147,23 @@ $("p_send").onclick=function(){
  var m="Salam, mujhe apni property list karwani hai.%0A"+["p_type","p_kind","p_area","p_price","p_beds","p_size","p_note"].map(function(i){return enc($(i).value)}).join("%0A");
  location.href="https://wa.me/"+PHONE+"?text="+m;
 };
-fillAreas();render();
+// ===== GOOGLE SHEET KA LINK (CSV) YAHAN AAYEGA =====
+var SHEET_CSV = "";
+function parseCSV(t){var r=[],row=[],c="",q=false,i,ch;for(i=0;i<t.length;i++){ch=t[i];
+ if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
+ else if(ch==='"')q=true;else if(ch===","){row.push(c);c=""}
+ else if(ch==="\n"){row.push(c);r.push(row);row=[];c=""}else if(ch!=="\r")c+=ch}
+ if(c||row.length){row.push(c);r.push(row)}return r}
+function init(){fillAreas();render()}
+function loadSheet(){
+ if(!SHEET_CSV){init();return}
+ fetch(SHEET_CSV).then(function(r){return r.text()}).then(function(t){
+  var rows=parseCSV(t),h=rows.shift().map(function(x){return x.trim().toLowerCase()}),out=[];
+  rows.forEach(function(r,i){var o={};h.forEach(function(k,j){o[k]=(r[j]||"").trim()});
+   if(!o.title||(o.show&&o.show.toLowerCase()==="no"))return;
+   out.push({id:i+1,title:o.title,kind:o.kind||"Ghar",type:(o.type||"").toLowerCase()==="sale"?"sale":"rent",area:o.area||"Badin",price:parseInt((o.price||"0").replace(/[^0-9]/g,""),10)||0,beds:+o.beds||0,baths:+o.baths||0,size:o.size||"",note:o.note||"",img:o.photo||""})});
+  if(out.length)LISTINGS=out;init()}).catch(init)}
+loadSheet();
 </script>
 </body>
 </html>
