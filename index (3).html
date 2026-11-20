@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ur-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Badin Property – Badin mein ghar kiraye aur bikri ke liye</title>
+<meta name="description" content="Badin city mein ghar, plot, flat aur dukaan kiraye ya bikri ke liye. Search karein, filter karein, seedha call ya WhatsApp karein.">
+<meta name="keywords" content="Badin property, Badin house for rent, Badin house for sale, Badin ghar kiraye, Badin plot">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Mukta:wght@400;600&display=swap">
+<style>
+:root{--bg:#f6f7fb;--ink:#1c2033;--muted:#5d6275;--blue:#1f4fd8;--red:#b0352b;--line:#e0e3ee;--card:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12152a;--ink:#eeeaf2;--muted:#a3a7bd;--blue:#7d9bff;--red:#ff7d6e;--line:#2b3052;--card:#1c2040}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 Mukta,system-ui,sans-serif}
+h1,h2,h3{font-family:Bitter,Georgia,serif;line-height:1.2;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+.top{background:var(--blue);color:#fff;padding:26px 0 22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .top{background:#1b2a6b}}
+.top h1{font-size:clamp(26px,6vw,40px);font-weight:800}
+.top p{margin:6px 0 14px;opacity:.92}
+.search{display:flex;gap:8px}
+.search input{flex:1;min-width:0}
+.btn{display:inline-block;border:0;border-radius:8px;padding:10px 16px;font:600 16px Mukta,sans-serif;text-decoration:none;cursor:pointer;text-align:center}
+.wa{background:#1f9d55;color:#fff}.call{background:var(--blue);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .call{color:#12152a}}
+.red{background:var(--red);color:#fff}
+select,input,textarea{font:16px Mukta,sans-serif;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+.count{padding:14px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:14px 0 26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+.ph{height:160px;position:relative;display:flex;align-items:center;justify-content:center;font:800 38px Bitter,serif;color:#fff;background:var(--blue) center/cover}
+.ph.sale{background-color:var(--red)}
+.badge{position:absolute;left:10px;top:10px;background:#fff;color:#1c2033;border-radius:6px;padding:2px 9px;font:600 14px Mukta,sans-serif}
+.fav{position:absolute;right:8px;top:6px;background:rgba(255,255,255,.92);border:0;border-radius:50%;width:36px;height:36px;font-size:19px;cursor:pointer;color:#b0352b}
+.body{padding:12px 14px 14px}
+.price{font:800 22px Bitter,serif}
+.facts{font-weight:600;margin:2px 0}
+.meta{color:var(--muted);font-size:15px}
+.empty{padding:40px 0;color:var(--muted)}
+dialog{border:0;border-radius:14px;padding:0;max-width:520px;width:calc(100% - 24px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.dbody{padding:18px;display:grid;gap:10px}
+.acts{display:flex;gap:8px}.acts .btn{flex:1}
+.close{justify-self:end;background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)}
+section.post{border-top:1px solid var(--line);padding:28px 0;display:grid;gap:10px;max-width:560px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+footer{border-top:1px solid var(--line);padding:20px 0 30px;color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<h1>Badin Property</h1>
+<p>Badin mein ghar, plot, flat ya dukaan, kiraye par ya bikri ke liye.</p>
+<div class="search"><input id="q" placeholder="Area ya naam likhein, jaise Gulshan" aria-label="Search"><a class="btn red" href="#post">Ghar list karein</a></div>
+</div></div>
+
+<main class="wrap">
+<div class="filters">
+<select id="type" aria-label="Rent ya Sale"><option value="">Rent aur Sale</option><option value="rent">Kiraye ke liye</option><option value="sale">Bikri ke liye</option></select>
+<select id="kind" aria-label="Qisam"><option value="">Har qisam</option><option>Ghar</option><option>Plot</option><option>Dukaan</option><option>Flat</option></select>
+<select id="beds" aria-label="Kamre"><option value="0">Kitne bhi kamre</option><option value="1">1+ kamra</option><option value="2">2+ kamre</option><option value="3">3+ kamre</option><option value="4">4+ kamre</option></select>
+<select id="sort" aria-label="Tarteeb"><option value="new">Naye pehle</option><option value="low">Sasta pehle</option><option value="high">Mehnga pehle</option></select>
+<select id="area" aria-label="Area"><option value="">Poora Badin</option></select>
+<button class="btn" id="favbtn" style="background:var(--card);border:1px solid var(--line);color:var(--ink)">Pasandida ♥</button>
+</div>
+<div class="count" id="count"></div>
+<div id="list" class="grid" aria-live="polite"></div>
+
+<section class="post" id="post">
+<h2>Apna ghar list karwayen</h2>
+<p class="meta">Details bharein, WhatsApp khulega, bas bhej dein. Listing jaldi laga di jati hai.</p>
+<div class="two"><select id="p_type"><option value="rent">Kiraye ke liye</option><option value="sale">Bikri ke liye</option></select>
+<select id="p_kind"><option>Ghar</option><option>Plot</option><option>Dukaan</option><option>Flat</option></select></div>
+<div class="two"><input id="p_area" placeholder="Area"><input id="p_price" placeholder="Qeemat"></div>
+<div class="two"><input id="p_beds" type="number" min="0" placeholder="Kamre"><input id="p_size" placeholder="Size (marla)"></div>
+<textarea id="p_note" rows="2" placeholder="Aur kuch batana ho"></textarea>
+<button class="btn wa" id="p_send">WhatsApp par bhejein</button>
+</section>
+</main>
+<footer><div class="wrap">Badin Property · Badin, Sindh · Rabta: Jawad Hussain Soomro, <a href="tel:+923182962692" style="color:inherit">0318 2962692</a> · Deal se pehle ghar aur malik ki tasdeeq khud kar lein.</div></footer>
+
+<dialog id="dlg"><div class="dbody" id="dbody"></div></dialog>
+
+<script>
+// ===== APNA NUMBER YAHAN LIKHEIN (92 se shuru, bina + ya 0) =====
+var PHONE = "923182962692";
+// ===== LISTINGS: nayi listing yahan add hoti hai. img mein photo ka link de sakte hain =====
+var LISTINGS = [
+ {id:1,title:"3 kamron ka ghar",kind:"Ghar",type:"rent",area:"Badin City",price:18000,beds:3,baths:2,size:"5 marla",note:"Namuna listing",img:""},
+ {id:2,title:"2 kamron ka ghar",kind:"Ghar",type:"rent",area:"Gulshan-e-Badin",price:12000,beds:2,baths:1,size:"3 marla",note:"Namuna listing",img:""},
+ {id:3,title:"Corner ghar",kind:"Ghar",type:"sale",area:"Badin City",price:4500000,beds:4,baths:3,size:"10 marla",note:"Namuna listing",img:""},
+ {id:4,title:"Main road par dukaan",kind:"Dukaan",type:"rent",area:"Main Bazaar",price:25000,beds:0,baths:0,size:"300 sq ft",note:"Namuna listing",img:""},
+ {id:5,title:"Residential plot",kind:"Plot",type:"sale",area:"Gulshan-e-Badin",price:1400000,beds:0,baths:0,size:"5 marla",note:"Namuna listing",img:""},
+ {id:6,title:"Upar wali manzil ka flat",kind:"Flat",type:"rent",area:"Badin City",price:15000,beds:2,baths:1,size:"2 kamre",note:"Namuna listing",img:""},
+ {id:7,title:"1 kamre ka chhota ghar",kind:"Ghar",type:"rent",area:"Matli Road",price:8000,beds:1,baths:1,size:"2 marla",note:"Namuna listing",img:""},
+ {id:8,title:"4 kamron ka bada ghar",kind:"Ghar",type:"rent",area:"Gulshan-e-Badin",price:30000,beds:4,baths:3,size:"10 marla",note:"Namuna listing",img:""},
+ {id:9,title:"Naya bana hua ghar",kind:"Ghar",type:"sale",area:"Hyderabad Road",price:6800000,beds:5,baths:4,size:"12 marla",note:"Namuna listing",img:""},
+ {id:10,title:"Bazaar mein dukaan",kind:"Dukaan",type:"sale",area:"Main Bazaar",price:3500000,beds:0,baths:0,size:"250 sq ft",note:"Namuna listing",img:""},
+ {id:11,title:"Commercial plot",kind:"Plot",type:"sale",area:"Hyderabad Road",price:2800000,beds:0,baths:0,size:"8 marla",note:"Namuna listing",img:""},
+ {id:12,title:"2 kamron ka flat",kind:"Flat",type:"rent",area:"Gulshan-e-Badin",price:14000,beds:2,baths:1,size:"2 kamre",note:"Namuna listing",img:""},
+ {id:13,title:"3 kamron ka ghar, parking ke saath",kind:"Ghar",type:"rent",area:"Hyderabad Road",price:22000,beds:3,baths:2,size:"6 marla",note:"Namuna listing",img:""},
+ {id:14,title:"Chhoti dukaan",kind:"Dukaan",type:"rent",area:"Badin City",price:12000,beds:0,baths:0,size:"150 sq ft",note:"Namuna listing",img:""},
+ {id:15,title:"Residential plot",kind:"Plot",type:"sale",area:"Matli Road",price:900000,beds:0,baths:0,size:"3 marla",note:"Namuna listing",img:""},
+ {id:16,title:"Purana ghar, sasta",kind:"Ghar",type:"sale",area:"Badin City",price:2500000,beds:3,baths:2,size:"5 marla",note:"Namuna listing",img:""},
+ {id:17,title:"Family flat",kind:"Flat",type:"sale",area:"Badin City",price:3200000,beds:3,baths:2,size:"3 kamre",note:"Namuna listing",img:""},
+ {id:18,title:"2 kamron ka ghar",kind:"Ghar",type:"rent",area:"Matli Road",price:10000,beds:2,baths:1,size:"3 marla",note:"Namuna listing",img:""},
+ {id:19,title:"Godown / bada hall",kind:"Dukaan",type:"rent",area:"Hyderabad Road",price:40000,beds:0,baths:0,size:"1500 sq ft",note:"Namuna listing",img:""},
+ {id:20,title:"Bara plot, kheti ke qareeb",kind:"Plot",type:"sale",area:"Matli Road",price:5500000,beds:0,baths:0,size:"1 acre",note:"Namuna listing",img:""}
+];
+var $=function(i){return document.getElementById(i)},enc=encodeURIComponent;
+var favs=[],showFav=false;
+try{favs=JSON.parse(localStorage.getItem("badin_favs")||"[]")}catch(e){}
+function saveFavs(){try{localStorage.setItem("badin_favs",JSON.stringify(favs))}catch(e){}}
+function money(l){var p=l.price;var s=p>=100000?(p/100000).toFixed(p%100000?1:0).replace(/\.0$/,"")+" lakh":p.toLocaleString("en-PK");return "Rs "+s+(l.type==="rent"?" / mahina":"")}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function fillAreas(){$("area").length=1;var seen={};LISTINGS.forEach(function(l){seen[l.area]=1});Object.keys(seen).forEach(function(a){var o=document.createElement("option");o.textContent=a;$("area").appendChild(o)})}
+function facts(l){var a=[];if(l.beds)a.push(l.beds+" kamre");if(l.baths)a.push(l.baths+" bath");a.push(l.size);return a.join(" · ")}
+function photo(l){return l.img?'style="background-image:url(\''+esc(l.img)+'\')"':''}
+function render(){
+ var t=$("type").value,k=$("kind").value,a=$("area").value,b=+$("beds").value,q=$("q").value.trim().toLowerCase(),box=$("list");
+ var rows=LISTINGS.filter(function(l){
+  return (!t||l.type===t)&&(!k||l.kind===k)&&(!a||l.area===a)&&l.beds>=b&&(!showFav||favs.indexOf(l.id)>-1)&&(!q||(l.title+" "+l.area+" "+l.kind).toLowerCase().indexOf(q)>-1)});
+ var s=$("sort").value;
+ rows.sort(function(x,y){return s==="low"?x.price-y.price:s==="high"?y.price-x.price:y.id-x.id});
+ $("count").textContent=rows.length+" listing mili";box.innerHTML="";
+ if(!rows.length){box.innerHTML='<p class="empty">'+(LISTINGS.length?'Koi listing nahi mili. Filter badal kar dekhein.':'Abhi koi listing nahi. Jald naye ghar aayenge.')+'</p>';return}
+ rows.forEach(function(l){
+  var d=document.createElement("article");d.className="card";
+  d.innerHTML='<div class="ph '+(l.type==="sale"?"sale":"")+'" '+photo(l)+'>'+(l.img?"":esc(l.kind))+'<span class="badge">'+(l.type==="sale"?"Bikri":"Kiraya")+'</span><button class="fav" aria-label="Pasandida">'+(favs.indexOf(l.id)>-1?"♥":"♡")+'</button></div><div class="body"><div class="price">'+money(l)+'</div><div class="facts">'+facts(l)+'</div><div class="meta">'+esc(l.title)+', '+esc(l.area)+'</div></div>';
+  d.querySelector(".fav").onclick=function(e){e.stopPropagation();var i=favs.indexOf(l.id);i>-1?favs.splice(i,1):favs.push(l.id);saveFavs();render()};
+  d.onclick=function(){openD(l)};
+  box.appendChild(d);
+ });
+}
+function openD(l){
+ var msg="Salam, mujhe is listing ke baare mein maloom karna hai: "+l.title+", "+l.area+", "+money(l);
+ $("dbody").innerHTML='<button class="close" aria-label="Band karein" onclick="$(\'dlg\').close()">×</button><div class="ph '+(l.type==="sale"?"sale":"")+'" '+photo(l)+'>'+(l.img?"":esc(l.kind))+'</div><div class="price">'+money(l)+'</div><h3>'+esc(l.title)+'</h3><div class="facts">'+facts(l)+'</div><div class="meta">'+esc(l.area)+', Badin · '+(l.type==="sale"?"Bikri ke liye":"Kiraye ke liye")+'</div><p>'+esc(l.note)+'</p><div class="acts"><a class="btn call" href="tel:+'+PHONE+'">Call</a><a class="btn wa" href="https://wa.me/'+PHONE+'?text='+enc(msg)+'">WhatsApp</a></div>';
+ $("dlg").showModal();
+}
+["type","kind","beds","sort","area"].forEach(function(i){$(i).addEventListener("change",render)});
+$("q").addEventListener("input",render);
+$("favbtn").onclick=function(){showFav=!showFav;this.textContent=showFav?"Sab dekhein":"Pasandida ♥";render()};
+$("dlg").addEventListener("click",function(e){if(e.target===this)this.close()});
+$("p_send").onclick=function(){
+ var m="Salam, mujhe apni property list karwani hai.%0A"+["p_type","p_kind","p_area","p_price","p_beds","p_size","p_note"].map(function(i){return enc($(i).value)}).join("%0A");
+ location.href="https://wa.me/"+PHONE+"?text="+m;
+};
+// ===== GOOGLE SHEET KA LINK (CSV) YAHAN AAYEGA =====
+var SHEET_CSV = "https://docs.google.com/spreadsheets/d/1aZTWvBTNdbRp3VHtfLcgc3DHCuEY7CPF_m20rkLZed0/gviz/tq?tqx=out:csv";
+function parseCSV(t){var r=[],row=[],c="",q=false,i,ch;for(i=0;i<t.length;i++){ch=t[i];
+ if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
+ else if(ch==='"')q=true;else if(ch===","){row.push(c);c=""}
+ else if(ch==="\n"){row.push(c);r.push(row);row=[];c=""}else if(ch!=="\r")c+=ch}
+ if(c||row.length){row.push(c);r.push(row)}return r}
+function fixPhoto(u){u=(u||"").trim();if(!u)return "";var m=u.match(/drive\.google\.com\/file\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);if(m&&u.indexOf("drive.google.com")>-1)return "https://drive.google.com/thumbnail?id="+m[1]+"&sz=w1000";return u.replace(/['"()\s]/g,"")}
+function init(){fillAreas();render()}
+function loadSheet(){
+ if(!SHEET_CSV){init();return}
+ fetch(SHEET_CSV).then(function(r){return r.text()}).then(function(t){
+  var rows=parseCSV(t),h=rows.shift().map(function(x){return x.trim().toLowerCase()}),out=[];
+  rows.forEach(function(r,i){var o={};h.forEach(function(k,j){o[k]=(r[j]||"").trim()});
+   if(!o.title||(o.show&&o.show.toLowerCase()==="no"))return;
+   out.push({id:i+1,title:o.title,kind:o.kind||"Ghar",type:(o.type||"").toLowerCase()==="sale"?"sale":"rent",area:o.area||"Badin",price:parseInt((o.price||"0").replace(/[^0-9]/g,""),10)||0,beds:+o.beds||0,baths:+o.baths||0,size:o.size||"",note:o.note||"",img:fixPhoto(o.photo)})});
+  if(h.indexOf("title")<0)throw 0;LISTINGS=out;init()}).catch(function(){LISTINGS=[];init();$("count").textContent="Listings abhi load nahi ho sakin. Thori der baad dobara koshish karein."})}
+loadSheet();
+</script>
+</body>
+</html>
