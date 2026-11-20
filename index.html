@@ -53,7 +53,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 30px;color:var(--muted);f
 <div class="top"><div class="wrap">
 <h1>Badin Property</h1>
 <p>Badin mein ghar, plot, flat ya dukaan, kiraye par ya bikri ke liye.</p>
-<div class="search"><input id="q" placeholder="Area ya naam likhein, jaise Gulshan" aria-label="Search"><a class="btn red" href="#post">Ghar list karein</a></div>
+<div class="search"><input id="q" placeholder="Area ya naam likhein, jaise Gulshan" aria-label="Search"></div>
 </div></div>
 
 <main class="wrap">
@@ -68,16 +68,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 30px;color:var(--muted);f
 <div class="count" id="count"></div>
 <div id="list" class="grid" aria-live="polite"></div>
 
-<section class="post" id="post">
-<h2>Apna ghar list karwayen</h2>
-<p class="meta">Details bharein, WhatsApp khulega, bas bhej dein. Listing jaldi laga di jati hai.</p>
-<div class="two"><select id="p_type"><option value="rent">Kiraye ke liye</option><option value="sale">Bikri ke liye</option></select>
-<select id="p_kind"><option>Ghar</option><option>Plot</option><option>Dukaan</option><option>Flat</option></select></div>
-<div class="two"><input id="p_area" placeholder="Area"><input id="p_price" placeholder="Qeemat"></div>
-<div class="two"><input id="p_beds" type="number" min="0" placeholder="Kamre"><input id="p_size" placeholder="Size (marla)"></div>
-<textarea id="p_note" rows="2" placeholder="Aur kuch batana ho"></textarea>
-<button class="btn wa" id="p_send">WhatsApp par bhejein</button>
-</section>
+
 </main>
 <footer><div class="wrap">Badin Property · Badin, Sindh · Rabta: Jawad Hussain Soomro, <a href="tel:+923182962692" style="color:inherit">0318 2962692</a> · Deal se pehle ghar aur malik ki tasdeeq khud kar lein.</div></footer>
 
@@ -143,27 +134,26 @@ function openD(l){
 $("q").addEventListener("input",render);
 $("favbtn").onclick=function(){showFav=!showFav;this.textContent=showFav?"Sab dekhein":"Pasandida ♥";render()};
 $("dlg").addEventListener("click",function(e){if(e.target===this)this.close()});
-$("p_send").onclick=function(){
- var m="Salam, mujhe apni property list karwani hai.%0A"+["p_type","p_kind","p_area","p_price","p_beds","p_size","p_note"].map(function(i){return enc($(i).value)}).join("%0A");
- location.href="https://wa.me/"+PHONE+"?text="+m;
-};
-// ===== GOOGLE SHEET KA LINK (CSV) YAHAN AAYEGA =====
-var SHEET_CSV = "https://docs.google.com/spreadsheets/d/1aZTWvBTNdbRp3VHtfLcgc3DHCuEY7CPF_m20rkLZed0/gviz/tq?tqx=out:csv";
-function parseCSV(t){var r=[],row=[],c="",q=false,i,ch;for(i=0;i<t.length;i++){ch=t[i];
- if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
- else if(ch==='"')q=true;else if(ch===","){row.push(c);c=""}
- else if(ch==="\n"){row.push(c);r.push(row);row=[];c=""}else if(ch!=="\r")c+=ch}
- if(c||row.length){row.push(c);r.push(row)}return r}
+// ===== GOOGLE SHEET =====
+var SHEET_ID = "1aZTWvBTNdbRp3VHtfLcgc3DHCuEY7CPF_m20rkLZed0";
 function fixPhoto(u){u=(u||"").trim();if(!u)return "";var m=u.match(/drive\.google\.com\/file\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);if(m&&u.indexOf("drive.google.com")>-1)return "https://drive.google.com/thumbnail?id="+m[1]+"&sz=w1000";return u.replace(/['"()\s]/g,"")}
 function init(){fillAreas();render()}
+var loaded=false;
+function fail(){if(loaded)return;loaded=true;LISTINGS=[];init();$("count").textContent="Listings abhi load nahi ho sakin. Thori der baad dobara koshish karein."}
+function gotSheet(r){if(loaded)return;try{
+ var t=r.table,cols=t.cols.map(function(c){return (c.label||"").trim().toLowerCase()}),
+ rows=t.rows.map(function(x){return (x.c||[]).map(function(c){return c&&c.v!=null?String(c.v).trim():""})});
+ if(cols.indexOf("title")<0&&rows.length){cols=rows.shift().map(function(x){return x.toLowerCase()})}
+ if(cols.indexOf("title")<0)throw 0;
+ var out=[];rows.forEach(function(r,i){var o={};cols.forEach(function(k,j){o[k]=r[j]||""});
+  if(!o.title||(o.show&&o.show.toLowerCase()==="no"))return;
+  out.push({id:i+1,title:o.title,kind:o.kind||"Ghar",type:(o.type||"").toLowerCase()==="sale"?"sale":"rent",area:o.area||"Badin",price:parseInt((o.price||"0").replace(/[^0-9]/g,""),10)||0,beds:+o.beds||0,baths:+o.baths||0,size:o.size||"",note:o.note||"",img:fixPhoto(o.photo)})});
+ loaded=true;LISTINGS=out;init()}catch(e){fail()}}
 function loadSheet(){
- if(!SHEET_CSV){init();return}
- fetch(SHEET_CSV).then(function(r){return r.text()}).then(function(t){
-  var rows=parseCSV(t),h=rows.shift().map(function(x){return x.trim().toLowerCase()}),out=[];
-  rows.forEach(function(r,i){var o={};h.forEach(function(k,j){o[k]=(r[j]||"").trim()});
-   if(!o.title||(o.show&&o.show.toLowerCase()==="no"))return;
-   out.push({id:i+1,title:o.title,kind:o.kind||"Ghar",type:(o.type||"").toLowerCase()==="sale"?"sale":"rent",area:o.area||"Badin",price:parseInt((o.price||"0").replace(/[^0-9]/g,""),10)||0,beds:+o.beds||0,baths:+o.baths||0,size:o.size||"",note:o.note||"",img:fixPhoto(o.photo)})});
-  if(h.indexOf("title")<0)throw 0;LISTINGS=out;init()}).catch(function(){LISTINGS=[];init();$("count").textContent="Listings abhi load nahi ho sakin. Thori der baad dobara koshish karein."})}
+ if(!SHEET_ID){init();return}
+ var s=document.createElement("script");
+ s.src="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?headers=1&tqx=out:json;responseHandler:gotSheet";
+ s.onerror=fail;document.head.appendChild(s);setTimeout(fail,10000)}
 loadSheet();
 </script>
 </body>
